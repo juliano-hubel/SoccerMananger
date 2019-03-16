@@ -66,9 +66,29 @@ namespace SoccerManager.Api.Controllers
             return _handler.Handle(command);
         }
 
+        [HttpPut]
+        [Route("students")]
+        public ICommandResult UpdateStudent([FromBody] UpdateStudentCommand command)
+        {
+            return _handler.Handle(command);
+        }
+        [HttpPut]
+        [Route("students/address")]
+        public ICommandResult UpdateAdress([FromBody] UpdateAddressCommand command)
+        {
+            return _handler.Handle(command);
+        }
+
         [HttpDelete]
         [Route("students/classroom")]
         public ICommandResult RemoveClassroom([FromBody] RemoveClassRoomCommand command)
+        {
+            return _handler.Handle(command);
+        }
+
+        [HttpDelete]
+        [Route("students")]
+        public ICommandResult Remove([FromBody] RemoveStudentCommand command)
         {
             return _handler.Handle(command);
         }

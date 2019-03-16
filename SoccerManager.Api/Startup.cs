@@ -35,6 +35,7 @@ namespace SoccerManager.Api
             services.AddScoped<StudentHandler, StudentHandler>();
             services.AddScoped<ClassroomHandler, ClassroomHandler>();
             services.AddTransient<IStudentRepository, StudentRepository>();
+            services.AddTransient<IAddressRepository, AddressRepository>();
             services.AddTransient<IClassroomRepository, ClassroomRepository>();
             services.AddSwaggerGen(x => {
                 x.SwaggerDoc("v1", new Info { Title = "SoccerMananger", Version = "v1" });

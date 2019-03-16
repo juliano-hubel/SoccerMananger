@@ -26,5 +26,8 @@ namespace SoccerManager.Domain.Repositories
         void AddHealth(Guid StudentId, Health health);
 
         void AddAddress(Guid StudentId, Address address);
+
+        void Remove(Student Student);
+
     }
 }

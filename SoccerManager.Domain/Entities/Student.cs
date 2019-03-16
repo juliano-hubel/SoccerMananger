@@ -33,7 +33,7 @@ namespace SoccerManager.Domain.Entities
             string notes)
         {
             Father = father;
-            Mother = Mother;
+            Mother = mother;
             Payment = payment;
             UpdatePerson(name, email, birthDate, gender, notes);
         }

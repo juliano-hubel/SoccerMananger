@@ -116,7 +116,9 @@
     <Compile Include="Commands\Student\Input\AddAddressCommand.cs" />
     <Compile Include="Commands\Student\Input\AddClassroomCommand.cs" />
     <Compile Include="Commands\Student\Input\AddHealthCommand.cs" />
+    <Compile Include="Commands\Student\Input\RemoveStudentCommand.cs" />
     <Compile Include="Commands\Student\Input\RemoveClassRoomCommand.cs" />
+    <Compile Include="Commands\Student\Input\UpdateAddressCommand.cs" />
     <Compile Include="Commands\Student\Input\UpdateStudentCommand.cs" />
     <Compile Include="Commands\Student\Output\CommandResult.cs" />
     <Compile Include="Commands\Student\Input\CreateStudentCommand.cs" />
@@ -141,6 +143,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\ClassroomQueryResult.cs" />
     <Compile Include="Queries\StudentQueryResult.cs" />
+    <Compile Include="Repositories\IAddressRepository.cs" />
     <Compile Include="Repositories\IClassroomRepository.cs" />
     <Compile Include="Repositories\IStudentRepository.cs" />
     <Compile Include="Entities\Card.cs" />

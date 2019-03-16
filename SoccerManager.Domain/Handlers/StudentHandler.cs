@@ -16,19 +16,23 @@ namespace SoccerManager.Domain.Handlers
         IHandler<AddHealthCommand>,
         IHandler<AddClassroomCommand>,
         IHandler<RemoveClassRoomCommand>,
-        IHandler<UpdateStudentCommand>
+        IHandler<UpdateStudentCommand>,
+        IHandler<RemoveStudentCommand>,
+        IHandler<UpdateAddressCommand>
     {
 
         private readonly IStudentRepository _studentRepository;
         private readonly IClassroomRepository _classroomRepository;
+        private readonly IAddressRepository _addressRepository;
 
         public StudentHandler(
             IStudentRepository studentRepository,
-            IClassroomRepository classroomRepository)
+            IClassroomRepository classroomRepository,
+            IAddressRepository addressRepository)
         {
             _studentRepository = studentRepository;
             _classroomRepository = classroomRepository;
-
+            _addressRepository = addressRepository;
         }
 
         public ICommandResult Handle(CreateStudentCommand command)
@@ -272,6 +276,58 @@ namespace SoccerManager.Domain.Handlers
 
             return new CommandResult(true, "Aluno alterado com sucesso",
                 new { Id = student.Id, Name = student.Name.ToString() });
+
+        }
+
+        public ICommandResult Handle(RemoveStudentCommand command)
+        {
+            var student =  _studentRepository.GetById(command.Id);
+
+
+            AddNotifications(new Contract()
+                .Requires()
+                .IsNotNull(student, "student", "O aluno não existe"));
+
+            if(Invalid)
+                return new CommandResult(false, "Não foi possível remover o aluno", Notifications);
+
+            _studentRepository.Remove(student);
+
+            return new CommandResult(true, "Aluno removido com sucesso", null);
+
+        }
+
+        public ICommandResult Handle(UpdateAddressCommand command)
+        {
+            command.Validate();
+            AddNotifications(command);
+
+            var student = _studentRepository.GetById(command.StudentID);
+            var address = _addressRepository.GetById(command.AddressID);
+
+            AddNotifications(new Contract()
+                .Requires()
+                .IsNotNull(student, "student", "O aluno não existe")
+                .IsNotNull(address, "student", "O endereço não existe"));
+
+            address.UpdateAddress(
+                command.ZipCode, 
+                command.Street, 
+                command.Number, 
+                command.Neighborhood, 
+                command.City, 
+                command.State, 
+                command.PhoneNumber, 
+                command.CellPhoneNumber);                
+
+            AddNotifications(student, address);
+
+            if (Invalid)
+                return new CommandResult(false, "Erro ao adicionar.", Notifications);
+
+            _addressRepository.Update(address);
+
+            return new CommandResult(true, "Dados cadastrados com sucesso", Notifications);
 
         }
     }

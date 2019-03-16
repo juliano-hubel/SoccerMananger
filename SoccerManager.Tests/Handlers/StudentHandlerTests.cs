@@ -21,6 +21,7 @@ namespace SoccerManager.Tests.Handlers
         private Classroom _classroom;
         private Mock<IStudentRepository> _studentRepository;
         private Mock<IClassroomRepository> _classroomRepository;
+        private Mock<IAddressRepository> _addressRepository;
 
         [SetUp]
         public void SetUp()
@@ -36,6 +37,7 @@ namespace SoccerManager.Tests.Handlers
 
             _studentRepository = new Mock<IStudentRepository>();
             _classroomRepository = new Mock<IClassroomRepository>();
+            _addressRepository = new Mock<IAddressRepository>();
 
         }
 
@@ -141,7 +143,8 @@ namespace SoccerManager.Tests.Handlers
         {
             var studentHandler = new StudentHandler(
                 _studentRepository.Object,
-                _classroomRepository.Object);
+                _classroomRepository.Object,
+                _addressRepository.Object);
             studentHandler.Handle(_createStudentCommand);
 
             Assert.That(_createStudentCommand.Valid, Is.True);
@@ -155,7 +158,8 @@ namespace SoccerManager.Tests.Handlers
 
             var studentHandler = new StudentHandler(
                 _studentRepository.Object,
-                _classroomRepository.Object);
+                _classroomRepository.Object,
+                _addressRepository.Object);
 
             studentHandler.Handle(_addClassroomCommand);
 
@@ -170,7 +174,8 @@ namespace SoccerManager.Tests.Handlers
 
             var studentHandler = new StudentHandler(
                 _studentRepository.Object,
-                _classroomRepository.Object);
+                _classroomRepository.Object,
+                _addressRepository.Object);
             Assert.That(() => studentHandler.Handle(_addClassroomCommand), Throws.Exception);
         }
         
@@ -182,7 +187,8 @@ namespace SoccerManager.Tests.Handlers
 
             var studentHandler = new StudentHandler(
                 _studentRepository.Object,
-                _classroomRepository.Object);
+                _classroomRepository.Object,
+                _addressRepository.Object);
 
             studentHandler.Handle(_addAddressCommand);
             Assert.That(_addAddressCommand.Valid, Is.True);
@@ -196,7 +202,8 @@ namespace SoccerManager.Tests.Handlers
 
             var studentHandler = new StudentHandler(
                  _studentRepository.Object,
-                 _classroomRepository.Object);
+                 _classroomRepository.Object,
+                 _addressRepository.Object);
             var result = studentHandler.Handle(_updateStudentCommand);
             Assert.That(result.Success);
 
@@ -209,10 +216,22 @@ namespace SoccerManager.Tests.Handlers
 
             var studentHandler = new StudentHandler(
                  _studentRepository.Object,
-                 _classroomRepository.Object);
+                 _classroomRepository.Object,
+                 _addressRepository.Object);
             var result = studentHandler.Handle(_updateStudentCommand);
             Assert.That(!result.Success);
 
+        }
+
+        [Test]
+        public void Handle_RemoveStudentCommand_RemoveStudent()
+        {
+            Assert.Fail();
+        }
+        [Test]
+        public void Handle_UpdateAddressCommand_UpdateAddress()
+        {
+            Assert.Fail();
         }
 
 
