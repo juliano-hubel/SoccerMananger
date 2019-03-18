@@ -34,9 +34,11 @@ namespace SoccerManager.Api
             services.AddScoped<SoccerManagerDataContext, SoccerManagerDataContext>();
             services.AddScoped<StudentHandler, StudentHandler>();
             services.AddScoped<ClassroomHandler, ClassroomHandler>();
+            services.AddScoped<BankAccountHandler, BankAccountHandler>();
             services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddTransient<IAddressRepository, AddressRepository>();
             services.AddTransient<IClassroomRepository, ClassroomRepository>();
+            services.AddTransient<IBankAccountRepository, BankAccountRepository>();
             services.AddSwaggerGen(x => {
                 x.SwaggerDoc("v1", new Info { Title = "SoccerMananger", Version = "v1" });
             });

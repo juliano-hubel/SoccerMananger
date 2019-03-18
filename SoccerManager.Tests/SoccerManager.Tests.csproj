@@ -119,6 +119,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handlers\BankAccountHandlerTests.cs" />
     <Compile Include="Handlers\ClassroomHandlerTests.cs" />
     <Compile Include="Handlers\StudentHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

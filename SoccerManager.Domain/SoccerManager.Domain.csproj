@@ -111,6 +111,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\BankAccount\Input\CreateBankAccountCommand.cs" />
+    <Compile Include="Commands\BankAccount\Output\BankAccountCommandResult.cs" />
     <Compile Include="Commands\Classroom\Input\CreateClassroomCommand.cs" />
     <Compile Include="Commands\Classroom\Output\ClassroomCommandResult.cs" />
     <Compile Include="Commands\Student\Input\AddAddressCommand.cs" />
@@ -138,12 +140,14 @@
     <Compile Include="Entities\Team.cs" />
     <Compile Include="Enums\ECardType.cs" />
     <Compile Include="Enums\EGender.cs" />
+    <Compile Include="Handlers\BankAccountHandler.cs" />
     <Compile Include="Handlers\ClassroomHandler.cs" />
     <Compile Include="Handlers\StudentHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\ClassroomQueryResult.cs" />
     <Compile Include="Queries\StudentQueryResult.cs" />
     <Compile Include="Repositories\IAddressRepository.cs" />
+    <Compile Include="Repositories\IBankAccountRepository.cs" />
     <Compile Include="Repositories\IClassroomRepository.cs" />
     <Compile Include="Repositories\IStudentRepository.cs" />
     <Compile Include="Entities\Card.cs" />

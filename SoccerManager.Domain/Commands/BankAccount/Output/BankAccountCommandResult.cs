@@ -1,18 +1,15 @@
-﻿using SoccerManager.Domain.Repositories;
-using SoccerManager.Shared.Commands;
+﻿using SoccerManager.Shared.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SoccerManager.Domain.Commands.Classroom.Output
+namespace SoccerManager.Domain.Commands.BankAccount.Output
 {
-    public class ClassroomCommandResult : ICommandResult
+    class BankAccountCommandResult : ICommandResult
     {
-   
-
-        public ClassroomCommandResult(bool success, string message, object data)
+        public BankAccountCommandResult(bool success, string message, object data)
         {
             Success = success;
             Message = message;

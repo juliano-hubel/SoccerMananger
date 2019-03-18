@@ -18,27 +18,68 @@ namespace SoccerManager.Tests.Handlers
         private AddClassroomCommand _addClassroomCommand;
         private AddAddressCommand _addAddressCommand;
         private Student _student;
+        private Address _address;
         private Classroom _classroom;
         private Mock<IStudentRepository> _studentRepository;
         private Mock<IClassroomRepository> _classroomRepository;
         private Mock<IAddressRepository> _addressRepository;
+        private RemoveStudentCommand _removeStudentCommand;
+        private UpdateAddressCommand _updateAddressCommand;
 
         [SetUp]
         public void SetUp()
         {
+            BuildStudentEntity();
+            BuildAdressEntity();
+            BuildClassroomEntity();
             BuildCreateStudentCommand();
             BuildAddClassroomCommand();
             BuildAddAddressCommand();
             BuildUpdateStudentCommand();
-
-            BuildStudentEntity();
-            BuildClassroomEntity();
+            BuildRemoveStudentCommand();
+            BuildUpdateAdressCommand();
             
 
             _studentRepository = new Mock<IStudentRepository>();
             _classroomRepository = new Mock<IClassroomRepository>();
             _addressRepository = new Mock<IAddressRepository>();
 
+        }
+        private void BuildAdressEntity()
+        {
+            _address = new Address(
+                "80030001",
+                "Av. João Gualberto",
+                1259,
+                "Juvevê",
+                "Curitiba",
+                "PR",
+                "31569151",
+                "98833471");
+            _student.AddAddress(_address);
+        }
+
+
+        private void BuildRemoveStudentCommand()
+        {
+            _removeStudentCommand = new RemoveStudentCommand(Guid.NewGuid());
+
+        }
+
+        private void BuildUpdateAdressCommand()
+        {
+            _updateAddressCommand = new UpdateAddressCommand();
+            _updateAddressCommand.StudentID = _student.Id;
+            _updateAddressCommand.AddressID = _student.Address.Id;
+            _updateAddressCommand.ZipCode = "80030001";
+            _updateAddressCommand.Street = "Av. João Gualberto 1259";
+            _updateAddressCommand.Number = 1259;
+            _updateAddressCommand.Neighborhood = "Juvevê";
+            _updateAddressCommand.City = "Curitiba";
+            _updateAddressCommand.State = "PR";
+            _updateAddressCommand.PhoneNumber = "31569151";
+            _updateAddressCommand.CellPhoneNumber = "988334701";
+            
         }
 
         private void BuildCreateStudentCommand()
@@ -226,12 +267,32 @@ namespace SoccerManager.Tests.Handlers
         [Test]
         public void Handle_RemoveStudentCommand_RemoveStudent()
         {
-            Assert.Fail();
+            _studentRepository.Setup(r => r.GetById(It.IsAny<Guid>())).Returns(_student);
+            _studentRepository.Setup(r => r.Remove(_student));
+
+            var studentHandler = new StudentHandler(
+                _studentRepository.Object,
+                _classroomRepository.Object,
+                _addressRepository.Object);
+
+            var result = studentHandler.Handle(_removeStudentCommand);
+            Assert.That(result.Success);
         }
         [Test]
         public void Handle_UpdateAddressCommand_UpdateAddress()
         {
-            Assert.Fail();
+            _studentRepository.Setup(r => r.GetById(It.IsAny<Guid>())).Returns(_student);
+            _addressRepository.Setup(r => r.GetById(It.IsAny<Guid>())).Returns(_student.Address);
+            _addressRepository.Setup(r => r.Update(_student.Address));
+
+            var studentHandler = new StudentHandler(
+                 _studentRepository.Object,
+                 _classroomRepository.Object,
+                 _addressRepository.Object);
+
+            var result = studentHandler.Handle(_updateAddressCommand);
+            Assert.That(result.Success);
+
         }
 
 
