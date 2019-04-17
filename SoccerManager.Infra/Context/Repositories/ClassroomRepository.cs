@@ -34,7 +34,7 @@ namespace SoccerManager.Infra.Context.Repositories
                         new ClassroomQueryResult()
                         {
                             Id = c.Id,
-                            DayOfWeek = c.DayOfWeek,
+                            DayOfWeek = c.DayOfWeek.ToString(),
                             Start = c.Start,
                             End = c.End
                         });

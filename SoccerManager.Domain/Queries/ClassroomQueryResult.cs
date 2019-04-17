@@ -11,6 +11,6 @@ namespace SoccerManager.Domain.Queries
         public Guid Id { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        public DayOfWeek DayOfWeek { get; set; }
+        public string DayOfWeek { get; set; }
     }
 }

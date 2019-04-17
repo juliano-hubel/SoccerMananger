@@ -49,7 +49,8 @@ namespace SoccerManager.Infra.Mappigns
 
             builder.HasOne(x => x.Health);
             builder.HasOne(x => x.Address);
-            
+
+            builder.HasMany(x => x.StudentsClassrooms);
 
             builder.Ignore(x => x.Notifications);
 

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190404171707_addStundetmapTostudent.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Flunt" Version="1.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.2" />

@@ -20,17 +20,17 @@ namespace SoccerManager.Infra.Context.Repositories
 
         public void AddAddress(Guid StudentId, Address address)
         {
-            var student =  _context.Students.SingleOrDefault(s => s.Id == StudentId);
+            var student = _context.Students.SingleOrDefault(s => s.Id == StudentId);
 
-            if(student != null)
+            if (student != null)
             {
                 student.AddAddress(address);
                 _context.SaveChanges();
             }
         }
 
-        public void AddClassroom(StudentsClassrooms  studentsClassrooms)
-        {                        
+        public void AddClassroom(StudentsClassrooms studentsClassrooms)
+        {
             _context.StudentsClassrooms.Add(studentsClassrooms);
             _context.SaveChanges();
         }
@@ -47,16 +47,32 @@ namespace SoccerManager.Infra.Context.Repositories
             _context.Students.Add(student);
             _context.SaveChanges();
         }
-        
+
         public IEnumerable<StudentQueryResult> Get()
         {
-            return _context.Students.Select(s =>
-            new StudentQueryResult {
-                Id = s.Id,
-                CPF = s.Name.CPF,
-                Email = s.Email,
-                FirstName = s.Name.FirstName,
-                LastName = s.Name.LastName
+            return _context.Students.Select(student =>
+            new StudentQueryResult
+            {
+                Id = student.Id,
+                StudentFirstName = student.Name.FirstName,
+                StudentLastName = student.Name.LastName,
+                StudentRG = student.Name.RG,
+                StudentCPF = student.Name.CPF,
+                Email = student.Email,
+                BirthDate = student.BirthDate,
+                Gender = student.Gender,
+                Notes = student.Notes,
+                FatherFirstName = student.Father.FirstName,
+                FatherLastName = student.Father.LastName,
+                FatherRG = student.Father.RG,
+                FatherCPF = student.Father.CPF,
+                MotherFirstName = student.Mother.FirstName,
+                MotherLastName = student.Mother.LastName,
+                MotherRG = student.Mother.RG,
+                MotherCPF = student.Mother.CPF,
+                PaymentFee = student.Payment.Fee,
+                PaymentExpirationDay = student.Payment.ExpirationDay,
+                Age = student.Age
             });
         }
 
@@ -78,8 +94,8 @@ namespace SoccerManager.Infra.Context.Repositories
                    && s.ClassroomId == ClassroomId);
 
             _context.StudentsClassrooms.Remove(studenClassroom);
-            
-            _context.SaveChanges();            
+
+            _context.SaveChanges();
         }
 
         public void UpdateStudent(Student student)
@@ -87,6 +103,7 @@ namespace SoccerManager.Infra.Context.Repositories
             _context.Entry(student).State = EntityState.Modified;
             _context.SaveChanges();
         }
+
 
         public StudentQueryResult GetId(Guid Id)
         {
@@ -96,10 +113,34 @@ namespace SoccerManager.Infra.Context.Repositories
             return new StudentQueryResult
             {
                 Id = student.Id,
-                CPF = student.Name.CPF,
+                StudentFirstName = student.Name.FirstName,
+                StudentLastName = student.Name.LastName,
+                StudentRG = student.Name.RG,
+                StudentCPF = student.Name.CPF,
                 Email = student.Email,
-                FirstName = student.Name.FirstName,
-                LastName = student.Name.LastName              
+                BirthDate = student.BirthDate,
+                Gender = student.Gender,
+                Notes = student.Notes,
+                FatherFirstName = student.Father.FirstName,
+                FatherLastName = student.Father.LastName,
+                FatherRG = student.Father.RG,
+                FatherCPF = student.Father.CPF,
+                MotherFirstName = student.Mother.FirstName,
+                MotherLastName = student.Mother.LastName,
+                MotherRG = student.Mother.RG,
+                MotherCPF = student.Mother.CPF,
+                PaymentFee = student.Payment.Fee,
+                PaymentExpirationDay = student.Payment.ExpirationDay,
+                Age = student.Age,
+                Classrooms = _context.StudentsClassrooms.Where(s => s.StudentId == student.Id)
+                            .Select(s =>
+                            new ClassroomQueryResult
+                            {
+                                Id = s.Classroom.Id,
+                                Start = s.Classroom.Start,
+                                End = s.Classroom.End,
+                                DayOfWeek = s.Classroom.DayOfWeek.ToString()
+                            }).ToArray()
             };
         }
 
@@ -108,6 +149,6 @@ namespace SoccerManager.Infra.Context.Repositories
             _context.Students.Remove(student);
             _context.SaveChanges();
         }
-        
+
     }
 }

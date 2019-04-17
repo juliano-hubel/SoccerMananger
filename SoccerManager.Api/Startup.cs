@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SoccerManager.Domain.Handlers;
@@ -31,6 +33,7 @@ namespace SoccerManager.Api
 
             services.AddMvc();
 
+       
             services.AddScoped<SoccerManagerDataContext, SoccerManagerDataContext>();
             services.AddScoped<StudentHandler, StudentHandler>();
             services.AddScoped<ClassroomHandler, ClassroomHandler>();
@@ -53,7 +56,24 @@ namespace SoccerManager.Api
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SoccerMananger - V1"));
 
-            app.UseMvc();            
+            //var culture = new System.Globalization.CultureInfo("pt-BR");
+            //CultureInfo.CurrentCulture = culture;
+            //CultureInfo.DefaultThreadCurrentCulture = culture;
+            //CultureInfo.DefaultThreadCurrentUICulture = culture;
+            var supportedCultures = new[]
+            {
+                new CultureInfo("pt-BR")
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("pt-BR"),
+                SupportedCultures = supportedCultures,                
+                SupportedUICultures = supportedCultures
+            });          
+
+
+            app.UseMvc();
         }
     }
 }
