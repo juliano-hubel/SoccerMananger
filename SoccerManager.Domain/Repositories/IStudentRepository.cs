@@ -11,6 +11,8 @@ namespace SoccerManager.Domain.Repositories
 
         StudentQueryResult GetId(Guid id);
 
+        CheckEmailResult CheckEmail(string email);
+
         void CreateStudent(Student student);
 
         void UpdateStudent(Student student);

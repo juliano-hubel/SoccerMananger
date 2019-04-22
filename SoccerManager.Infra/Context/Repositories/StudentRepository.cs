@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.EntityFrameworkCore;
 using SoccerManager.Domain.Entities;
 using SoccerManager.Domain.Queries;
 using SoccerManager.Domain.Repositories;
@@ -74,6 +75,14 @@ namespace SoccerManager.Infra.Context.Repositories
                 PaymentExpirationDay = student.Payment.ExpirationDay,
                 Age = student.Age
             });
+        }
+
+
+        public CheckEmailResult CheckEmail(string email)
+        {
+            bool exists =  _context.Students.FirstOrDefault(s => s.Email == email) != null;
+            return new CheckEmailResult() { Exists = exists };
+
         }
 
         public Student GetById(Guid id)

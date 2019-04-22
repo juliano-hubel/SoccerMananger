@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SoccerManager.Domain.Commands.Student.Input;
 using SoccerManager.Domain.Commands.Student.Output;
@@ -14,6 +15,7 @@ using SoccerManager.Shared.Commands;
 
 namespace SoccerManager.Api.Controllers
 {
+    //[AllowAnonymous]
     public class StudentController : Controller
     {
         private StudentHandler _handler;
@@ -26,7 +28,14 @@ namespace SoccerManager.Api.Controllers
         }
 
         [HttpGet]
-        [Route("students")]
+        [Route("checkexistingemail/{email}")]
+        [AllowAnonymous]
+        public CheckEmailResult CheckEmail(string email)
+        {
+            return _repository.CheckEmail(email);
+        }
+        [HttpGet]
+        [Route("students")]        
         public IEnumerable<StudentQueryResult> Get()
         {
             return _repository.Get();
