@@ -26,7 +26,7 @@ namespace SoccerManager.Api.Controllers
 
         [HttpGet]
         [Route("teachers")]
-        [Authorize(policy: "Administrator")]
+        [Authorize]
         public IEnumerable<TeacherQueryResult> Get()
         {
             return _repository.Get();

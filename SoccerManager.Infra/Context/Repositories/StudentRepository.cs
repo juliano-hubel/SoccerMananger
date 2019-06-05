@@ -154,7 +154,7 @@ namespace SoccerManager.Infra.Context.Repositories
         }
 
         public void Remove(Student student)
-        {
+        {            
             _context.Students.Remove(student);
             _context.SaveChanges();
         }

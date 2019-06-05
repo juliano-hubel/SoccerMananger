@@ -96,9 +96,10 @@ namespace SoccerManager.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("students")]
-        public ICommandResult Remove([FromBody] RemoveStudentCommand command)
+        [Route("students/{id}")]
+        public ICommandResult Remove( Guid id)
         {
+            RemoveStudentCommand command = new RemoveStudentCommand(id);
             return _handler.Handle(command);
         }
 

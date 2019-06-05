@@ -16,8 +16,7 @@ namespace SoccerManager.Domain.Handlers
         IHandler<AddHealthCommand>,
         IHandler<AddClassroomCommand>,
         IHandler<RemoveClassRoomCommand>,
-        IHandler<UpdateStudentCommand>,
-        IHandler<RemoveStudentCommand>,
+        IHandler<UpdateStudentCommand>,        
         IHandler<UpdateAddressCommand>
     {
 

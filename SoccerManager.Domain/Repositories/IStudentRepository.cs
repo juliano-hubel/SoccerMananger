@@ -29,7 +29,7 @@ namespace SoccerManager.Domain.Repositories
 
         void AddAddress(Guid StudentId, Address address);
 
-        void Remove(Student Student);
+        void Remove(Student id);
 
     }
 }

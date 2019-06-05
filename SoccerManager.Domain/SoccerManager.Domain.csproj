@@ -118,8 +118,8 @@
     <Compile Include="Commands\Student\Input\AddAddressCommand.cs" />
     <Compile Include="Commands\Student\Input\AddClassroomCommand.cs" />
     <Compile Include="Commands\Student\Input\AddHealthCommand.cs" />
-    <Compile Include="Commands\Student\Input\RemoveStudentCommand.cs" />
     <Compile Include="Commands\Student\Input\RemoveClassRoomCommand.cs" />
+    <Compile Include="Commands\Student\Input\RemoveStudentCommand.cs" />
     <Compile Include="Commands\Student\Input\UpdateAddressCommand.cs" />
     <Compile Include="Commands\Student\Input\UpdateStudentCommand.cs" />
     <Compile Include="Commands\Student\Output\CommandResult.cs" />
