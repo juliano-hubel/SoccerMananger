@@ -14,8 +14,9 @@ namespace SoccerManager.Domain.Repositories
         void CreateTeacher(Teacher teacher);
         IEnumerable<TeacherQueryResult> Get();
         Teacher Get(string email);
+        TeacherQueryResult Get(Guid id);
 
-        
-        
+
+
     }
 }

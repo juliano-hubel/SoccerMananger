@@ -42,5 +42,34 @@ namespace SoccerManager.Infra.Context.Repositories
                 });
 
         }
+
+        public TeacherQueryResult Get(Guid id)
+        {
+            var  teacher = _context.Teachers.FirstOrDefault(t => t.Id == id);
+            return new TeacherQueryResult()
+            {
+                Id = teacher.Id,
+                FirstName = teacher.Name.FirstName,
+                LastName = teacher.Name.LastName,
+                Gender = teacher.Gender,
+                BirthDate = teacher.BirthDate,
+                Email = teacher.Email,
+                Earnings = teacher.Earnings,
+                //BankAccountNumber = teacher.BankAccount.AccountNumber,
+                //BankName = teacher.BankAccount.BankName,
+                //BankAgency = teacher.BankAccount.Agency,
+                //Street = teacher.Address.Street,
+                //Number = teacher.Address.Number,
+                //Neighborhood = teacher.Address.Neighborhood,
+                //City = teacher.Address.City,
+                //ZipCode = teacher.Address.ZipCode,
+                //State = teacher.Address.State,
+                //PhoneNumber = teacher.Address.PhoneNumber,
+                //CellPhoneNumber = teacher.Address.CellPhoneNumber,
+                Notes = teacher.Notes
+            };
+
+
+        }
     }
 }

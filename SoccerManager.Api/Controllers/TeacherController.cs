@@ -39,7 +39,13 @@ namespace SoccerManager.Api.Controllers
         {
             return _handler.Handle(command);
         }
-
+        [HttpGet]
+        [Route("teachers/{id}")]
+        [Authorize]
+        public TeacherQueryResult  Get(Guid id)
+        {
+            return _repository.Get(id);
+        }
 
     }
 }

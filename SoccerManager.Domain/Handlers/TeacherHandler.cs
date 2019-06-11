@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 
 namespace SoccerManager.Domain.Handlers
 {
-    public class TeacherHandler : Notifiable, ICommandHandler<CreateTeacherCommand>
+    public class TeacherHandler : Notifiable, 
+        ICommandHandler<CreateTeacherCommand>
     {
         private ITeacherRepository _repository;
 

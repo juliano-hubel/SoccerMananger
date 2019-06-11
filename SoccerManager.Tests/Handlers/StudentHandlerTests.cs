@@ -38,13 +38,15 @@ namespace SoccerManager.Tests.Handlers
             BuildUpdateStudentCommand();
             BuildRemoveStudentCommand();
             BuildUpdateAdressCommand();
-            
+
 
             _studentRepository = new Mock<IStudentRepository>();
             _classroomRepository = new Mock<IClassroomRepository>();
             _addressRepository = new Mock<IAddressRepository>();
 
         }
+
+        #region BuildEntities
         private void BuildAdressEntity()
         {
             _address = new Address(
@@ -59,7 +61,34 @@ namespace SoccerManager.Tests.Handlers
             _student.AddAddress(_address);
         }
 
+        private void BuildStudentEntity()
+        {
+            string firstName = "Juliano";
+            string lastName = "Hubel";
+            string rg = "99999999";
+            string cpf = "99999999999";
+            decimal studentFee = 1;
+            int expirationDay = 2;
 
+            var name = new Name(firstName, lastName, rg, cpf);
+            var payment = new Payment(studentFee, expirationDay);
+            _student = new Student(name, name, payment,
+                name, string.Empty, DateTime.MinValue,
+                EGender.Male, string.Empty);
+        }
+
+        private void BuildClassroomEntity()
+        {
+            _classroom = new Classroom
+                (
+                    DateTime.Now.AddHours(1),
+                    DateTime.Now.AddHours(3),
+                    DayOfWeek.Monday
+                );
+        }
+        #endregion
+
+        #region BuildCommands
         private void BuildRemoveStudentCommand()
         {
             _removeStudentCommand = new RemoveStudentCommand(Guid.NewGuid());
@@ -79,7 +108,7 @@ namespace SoccerManager.Tests.Handlers
             _updateAddressCommand.State = "PR";
             _updateAddressCommand.PhoneNumber = "31569151";
             _updateAddressCommand.CellPhoneNumber = "988334701";
-            
+
         }
 
         private void BuildCreateStudentCommand()
@@ -117,8 +146,8 @@ namespace SoccerManager.Tests.Handlers
             _addAddressCommand = new AddAddressCommand()
             {
                 StudentID = Guid.NewGuid(),
-                ZipCode = "80030001",                
-                Street =  "Av. João Gualberto",
+                ZipCode = "80030001",
+                Street = "Av. João Gualberto",
                 Number = 1259,
                 Neighborhood = "Juvevê",
                 City = "Curitiba",
@@ -127,32 +156,6 @@ namespace SoccerManager.Tests.Handlers
                 CellPhoneNumber = "988552244"
             };
 
-        }
-
-        private void BuildStudentEntity()
-        {
-            string firstName = "Juliano";
-            string lastName = "Hubel";
-            string rg = "99999999";
-            string cpf = "99999999999";
-            decimal studentFee = 1;
-            int expirationDay = 2;
-
-            var name = new Name(firstName, lastName, rg, cpf);
-            var payment = new Payment(studentFee, expirationDay);
-            _student = new Student(name, name, payment,
-                name, string.Empty, DateTime.MinValue,
-                EGender.Male, string.Empty);
-        }
-
-        private void BuildClassroomEntity()
-        {
-            _classroom = new Classroom
-                (
-                    DateTime.Now.AddHours(1),
-                    DateTime.Now.AddHours(3),
-                    DayOfWeek.Monday
-                );
         }
 
         private void BuildUpdateStudentCommand()
@@ -178,6 +181,8 @@ namespace SoccerManager.Tests.Handlers
             _updateStudentCommand.PaymentFee = 59;
             _updateStudentCommand.PaymentExpirationDay = 5;
         }
+        #endregion
+
 
         [Test]
         public void Handle_CreateStudentCommand_WhenCalled_CreateStudent()
@@ -219,7 +224,7 @@ namespace SoccerManager.Tests.Handlers
                 _addressRepository.Object);
             Assert.That(() => studentHandler.Handle(_addClassroomCommand), Throws.Exception);
         }
-        
+
         [Test]
         public void Handle_AddAddressCommand_WhenCalled_AddAddressToStudent()
         {
@@ -278,6 +283,7 @@ namespace SoccerManager.Tests.Handlers
             var result = studentHandler.Handle(_removeStudentCommand);
             Assert.That(result.Success);
         }
+
         [Test]
         public void Handle_UpdateAddressCommand_UpdateAddress()
         {
